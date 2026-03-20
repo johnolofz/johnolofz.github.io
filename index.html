@@ -591,13 +591,29 @@
     .audio-track-list { border-bottom: 1px solid var(--rule); }
     .audio-track-row {
       display: grid;
-      grid-template-columns: 40px 1fr auto;
+      grid-template-columns: 32px 44px 1fr auto;
       align-items: center;
-      gap: 1rem;
-      padding: 0.9rem 1.2rem;
+      gap: 0.9rem;
+      padding: 0.7rem 1.2rem;
       border-bottom: 1px solid var(--rule);
       cursor: pointer;
       transition: background 0.15s;
+    }
+    .audio-track-thumb {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 2px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .audio-track-row:hover .audio-track-thumb,
+    .audio-track-row.active .audio-track-thumb { opacity: 1; }
+    .audio-now-playing {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
     }
     .audio-track-row:last-child { border-bottom: none; }
     .audio-track-row:hover { background: rgba(184,154,106,0.06); }
@@ -638,7 +654,7 @@
       flex-direction: column;
       gap: 0.7rem;
     }
-    .audio-now-playing { min-width: 0; }
+
     .now-playing-title {
       display: block;
       font-family: var(--serif);
@@ -1239,9 +1255,15 @@
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggleNav" aria-label="Toggle dark mode"
         onclick="document.body.classList.toggle('dark'); localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');">
-        <span class="toggle-label-sun">Sun</span>
+        <span class="toggle-label-sun">
+          <!-- filled circle = sun -->
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="currentColor"><circle cx="5.5" cy="5.5" r="5.5"/></svg>
+        </span>
         <span class="toggle-track"><span class="toggle-knob"></span></span>
-        <span class="toggle-label-moon">Moon</span>
+        <span class="toggle-label-moon">
+          <!-- crescent = moon -->
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="currentColor"><path d="M5.5 0a5.5 5.5 0 1 0 5.5 5.5A4.25 4.25 0 1 1 5.5 0z"/></svg>
+        </span>
       </button>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -1276,7 +1298,7 @@
     <div class="hero-content">
       <p class="hero-eyebrow">Composer &amp; Sound Designer</p>
       <h1 class="hero-name">John Åhlin</h1>
-      <p class="hero-tagline">Games · Trailers · Films · Interactive Media</p>
+      <p class="hero-tagline">Games · Trailers · Films</p>
     </div>
 
     <button class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" aria-label="Scroll to content">
@@ -1302,10 +1324,10 @@
         </div>
         <div class="about-text reveal">
           <h2 class="section-title">Music built from <em>the ground up</em></h2>
-          <p>Composer and sound designer based in Stockholm, Sweden. Since 2017 I've specialised in games and interactive music - scores that respond, breathe and adapt alongside the player.</p>
-          <p>I've worked extensively in mobile and casino games. My previous work includes award winning short films, interactive works, commercials and 120 tracks for Epidemic Sound, featured across all major Swedish TV channels.</p>
-          <p>Trailer music is a current passion of mine. I love building tension, impact and release within a tight format. My trailer catalogue is available through MYMA Music. As a guitarist with a deep love for stringed instruments, I lean into acoustic and organic textures - layered against electronic production and cinematic sound design.</p>
-          <p>I also record as John Dunder, an atmospheric synth project that can be licensed through West Channel Music. When I'm not in the studio, I'm somewhere in the Swedish wilderness with a field recorder.</p>
+          <p>I'm a composer and sound designer based in Stockholm. I've been working with games and interactive audio since 2017 - writing music and creating sounds that adapts and reacts alongside the player is something I genuinely love doing.</p>
+          <p>Lately I've been spending a lot of time on trailer music. There's something satisfying about building tension and impact within a tight format, finding where the music and picture lock together.</p>
+          <p>Guitar is at the heart of most things I make, even when it's buried deep in the mix. I have a soft spot for stringed instruments in general - acoustic and organic textures that I then layer against electronic production and cinematic sound design. That combination is what I keep coming back to.</p>
+          <p>When I'm not in the studio, I'm usually somewhere in the Swedish wilderness - often overnight, with a field recorder ready.</p>
         </div>
       </div>
     </div>
@@ -1479,9 +1501,12 @@
       <div class="audio-player">
         <div class="audio-track-list" id="audioList"></div>
         <div class="audio-controls">
-          <div class="audio-now-playing" id="nowPlaying">
-            <span class="now-playing-title" id="nowPlayingTitle">-</span>
-            <span class="now-playing-meta" id="nowPlayingMeta">Select a track to play</span>
+          <div class="audio-now-playing">
+            <img id="nowPlayingThumb" src="" alt="" style="width:56px;height:56px;object-fit:cover;flex-shrink:0;border-radius:2px;opacity:0.9;display:none;">
+            <div style="min-width:0;">
+              <span class="now-playing-title" id="nowPlayingTitle">-</span>
+              <span class="now-playing-meta" id="nowPlayingMeta">Select a track to play</span>
+            </div>
           </div>
           <div class="audio-progress-wrap">
             <span class="audio-time" id="currentTime">0:00</span>
@@ -1522,24 +1547,13 @@
         </div>
         <div class="myma-link-inner" style="margin-top:0.8rem;">
           <div class="myma-link-text">
-            <span class="myma-eyebrow">Music Licensing · John Dunder</span>
+            <span class="myma-eyebrow">Music &amp; Sync Licensing · John Dunder</span>
             <p>Electronic and cinematic tracks available via West Channel Music.</p>
           </div>
           <a href="https://westchannel.disco.ac/cat/5418/artists/9369204"
              class="myma-btn" target="_blank" rel="noopener">
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h8M7 3l4 4-4 4"/></svg>
-            Browse on Disco
-          </a>
-        </div>
-        <div class="myma-link-inner" style="margin-top:0.8rem;">
-          <div class="myma-link-text">
-            <span class="myma-eyebrow">Music Licensing · John Åhlin</span>
-            <p>Full catalogue available on MYMA Music.</p>
-          </div>
-          <a href="https://www.myma-music.com/search?keyword_fields=%22John_Aahlin_Composer%22&view=tracks&page=1"
-             class="myma-btn" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h8M7 3l4 4-4 4"/></svg>
-            Browse on MYMA
+            Browse on West Channel
           </a>
         </div>
       </div>
@@ -1577,6 +1591,10 @@
             <div class="contact-detail">
               <span>Based in</span>
               <p>Stockholm, Sweden</p>
+            </div>
+            <div class="contact-detail">
+              <span>Trailer &amp; Sync Licensing · John Åhlin</span>
+              <a href="https://www.myma-music.com/search?keyword_fields=%22John_Aahlin_Composer%22&view=tracks&page=1" target="_blank" rel="noopener">MYMA Music</a>
             </div>
             <div class="contact-detail">
               <span>Music &amp; Sync Licensing · John Dunder</span>
@@ -1714,9 +1732,11 @@
     // ║  Place files next to index.html in your repo              ║
     // ╚═══════════════════════════════════════════════════════════╝
     const tracks = [
-      { title: "Track Title 1", artist: "John Åhlin", src: "audio/track1.opus" },
-      { title: "Track Title 2", artist: "John Åhlin", src: "audio/track2.opus" },
-      { title: "Track Title 3", artist: "John Dunder", src: "audio/track3.opus" },
+      { title: "Murder Like Clockwork", artist: "John Åhlin · Trailer", src: "audio/1. John Ahlin - Murder Like Clockwork (Trailer).opus", thumb: "images/murderlikeclockwork_thumb.png" },
+      { title: "No Cap", artist: "John Åhlin · Trailer", src: "audio/2. John Ahlin - No Cap (Trailer).opus", thumb: "images/nocap_thumb.png" },
+      { title: "Second Thunder", artist: "John Åhlin · Game Theme", src: "audio/3. John Ahlin - Second Thunder (Game Theme).opus", thumb: "images/secondthunder_thumb.png" },
+      { title: "Sword Of Arthur", artist: "John Åhlin · Game Theme", src: "audio/4. John Ahlin - Sword Of Arthur (Game Theme).wav.opus", thumb: "images/swordofarthur_thumb.png" },
+      { title: "Green Mirage", artist: "John Dunder · From Runner Two Album", src: "audio/5. John Dunder - Green Mirage.opus", thumb: "images/runnertwo_thumb.jpg" },
     ];
 
     let audio = new Audio();
@@ -1749,6 +1769,7 @@
         row.className = 'audio-track-row';
         row.innerHTML = `
           <span class="audio-track-num">${i + 1}</span>
+          <img class="audio-track-thumb" src="${t.thumb}" alt="${t.title}">
           <div class="audio-track-info">
             <div class="audio-track-name">${t.title}</div>
             <div class="audio-track-artist">${t.artist}</div>
@@ -1765,6 +1786,8 @@
       audio.src = t.src;
       audio.volume = volSlider.value / 100;
       nowPlayingTitle.textContent = t.title;
+      document.getElementById('nowPlayingThumb').src = t.thumb;
+      document.getElementById('nowPlayingThumb').style.display = 'block';
       nowPlayingMeta.textContent = t.artist;
       document.querySelectorAll('.audio-track-row').forEach((r, i) => r.classList.toggle('active', i === idx));
       if (autoplay) { audio.play(); isPlaying = true; setPlayState(true); }
