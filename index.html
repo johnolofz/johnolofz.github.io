@@ -1439,6 +1439,44 @@
           </div>
         </div>
 
+        <!-- YOUTUBE: Second Thunder Teaser -->
+        <div class="reel-card" data-type="youtube">
+          <div class="reel-thumb" data-videoid="ilypk2Qs5DA">
+            <img src="https://img.youtube.com/vi/ilypk2Qs5DA/mqdefault.jpg" alt="Second Thunder Teaser" loading="lazy" />
+            <div class="reel-play-btn">
+              <svg viewBox="0 0 52 52" fill="none">
+                <circle cx="26" cy="26" r="25" fill="rgba(247,244,239,0.92)"/>
+                <path d="M21 17l16 9-16 9V17z" fill="#1a1714"/>
+              </svg>
+            </div>
+          </div>
+          <div class="reel-iframe-wrap" id="yt-ilypk2Qs5DA"></div>
+          <div class="reel-card-body">
+            <p class="reel-card-type">Sound Design &amp; Music · Game Teaser</p>
+            <h3 class="reel-card-title">Second Thunder Teaser</h3>
+            <p class="reel-card-desc">Sound design and music for the Second Thunder game teaser.</p>
+          </div>
+        </div>
+
+        <!-- YOUTUBE: Sound Re-designs 2024 -->
+        <div class="reel-card" data-type="youtube">
+          <div class="reel-thumb" data-videoid="VLoOY4328WE">
+            <img src="https://img.youtube.com/vi/VLoOY4328WE/mqdefault.jpg" alt="Sound Re-designs 2024" loading="lazy" />
+            <div class="reel-play-btn">
+              <svg viewBox="0 0 52 52" fill="none">
+                <circle cx="26" cy="26" r="25" fill="rgba(247,244,239,0.92)"/>
+                <path d="M21 17l16 9-16 9V17z" fill="#1a1714"/>
+              </svg>
+            </div>
+          </div>
+          <div class="reel-iframe-wrap" id="yt-VLoOY4328WE"></div>
+          <div class="reel-card-body">
+            <p class="reel-card-type">Sound Design</p>
+            <h3 class="reel-card-title">Sound Re-designs 2024</h3>
+            <p class="reel-card-desc">A collection of sound re-designs from 2024.</p>
+          </div>
+        </div> 
+        
         <!-- VIMEO: C (299,792 km/s) -->
         <div class="reel-card" data-type="youtube">
           <div class="reel-thumb" data-vimeoid="58429056" style="cursor:pointer;">
@@ -1644,8 +1682,8 @@
       </div>
       <div class="contact-grid">
         <div class="contact-intro reveal">
-          <h2 class="section-title">Let's make something <em>together</em></h2>
-          <p>Whether you're a game developer seeking an adaptive score, a trailer house looking for high-impact cues, a music supervisor, or a director with a story to tell - I'd love to hear about your project.</p>
+          <h2 class="section-title">Feel free to reach out! <em>together</em></h2>
+          <p>Whether you're a game developer seeking sound design or adaptive score, a trailer house looking for high-energy cues, a music supervisor, or a director with a audiovisual vision. I'd love to hear about your project.</p>
           <br>
           <div class="contact-details">
             <div class="contact-detail">
@@ -1791,21 +1829,14 @@
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     // ── AUDIO PLAYER ──
-    // ╔═══════════════════════════════════════════════════════════╗
-    // ║  ADD YOUR TRACKS HERE                                     ║
-    // ║  Best formats for web (quality vs size):                  ║
-    // ║  • .opus  - best compression, great quality (recommended) ║
-    // ║  • .ogg   - excellent quality, widely supported           ║
-    // ║  • .mp3   - universal fallback                            ║
-    // ║  Tip: encode opus at 128–192kbps for transparent quality  ║
-    // ║  Place files next to index.html in your repo              ║
-    // ╚═══════════════════════════════════════════════════════════╝
+
     const tracks = [
-      { title: "Murder Like Clockwork", artist: "John Åhlin · Trailer", src: "audio/1. John Ahlin - Murder Like Clockwork (Trailer).opus", thumb: "images/murderlikeclockwork_thumb.png" },
-      { title: "No Cap", artist: "John Åhlin · Trailer", src: "audio/2. John Ahlin - No Cap (Trailer).opus", thumb: "images/nocap_thumb.png" },
+      
+      { title: "Green Mirage", artist: "John Dunder · Featured in Forza Horizon 6, Horizon Wave Radio. From Runner Two Album", src: "audio/5. John Dunder - Green Mirage.opus", thumb: "images/runnertwo_thumb.jpg" },
+      { title: "Murder Like Clockwork", artist: "John Åhlin · MYMA Trailer", src: "audio/1. John Ahlin - Murder Like Clockwork (Trailer).opus", thumb: "images/murderlikeclockwork_thumb.png" },
+      { title: "No Cap", artist: "John Åhlin · MYMA Trailer", src: "audio/2. John Ahlin - No Cap (Trailer).opus", thumb: "images/nocap_thumb.png" },
       { title: "Second Thunder", artist: "John Åhlin · Game Theme", src: "audio/3. John Ahlin - Second Thunder (Game Theme).opus", thumb: "images/secondthunder_thumb.png" },
       { title: "Sword Of Arthur", artist: "John Åhlin · Game Theme", src: "audio/4. John Ahlin - Sword Of Arthur (Game Theme).wav.opus", thumb: "images/swordofarthur_thumb.png" },
-      { title: "Green Mirage", artist: "John Dunder · From Runner Two Album", src: "audio/5. John Dunder - Green Mirage.opus", thumb: "images/runnertwo_thumb.jpg" },
     ];
 
     let audio = new Audio();
